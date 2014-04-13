@@ -19,5 +19,13 @@ class String{
     static string positiveIntToString(int num);
 };
 
+class LinkedList{
+ public:
+    int value;
+    LinkedList * next;
+    static LinkedList* deleteNode(LinkedList *head, LinkedList *curr);
+    
+};
+
 
 #endif
