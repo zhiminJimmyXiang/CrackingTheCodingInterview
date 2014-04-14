@@ -58,7 +58,7 @@ LinkedList *Chapter2::Problem_2(LinkedList *head, int k){
     LinkedList *first = head;
     LinkedList *second = head;
     int count = 1;
-    while(head!=NULL){
+    while(second!=NULL){
 	if(count<=k){
 	    ++count;
 	}
@@ -127,9 +127,7 @@ LinkedList * Chapter2::Problem_4(LinkedList *head, int x){
 	}
 	curr = curr->next;
     }
-    if(greaterBranchHead==NULL)
-	return head;
-    if(lessBranchHead == NULL)
+    if(greaterBranchHead==NULL || lessBranchHead == NULL)
 	return head;
     lessBranchTail->next = greaterBranchHead;
     greaterBranchTail->next = NULL;

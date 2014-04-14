@@ -65,7 +65,80 @@ bool Chapter2_test::Problem_1_test(){
     return true;
 
 }
+bool Chapter2_test::Problem_2_test(){
+    Chapter2 chapter2;
+    //case 1
+    LinkedList *input1=NULL;
+    if(chapter2.Problem_2(input1, 6)!=NULL)
+	return false;
+    
+    //case 2
+    int a[]={1};
+    LinkedList *input2 = LinkedList::createList(a, a+1);
+    if(chapter2.Problem_2(input2, 4)!=NULL)
+	return false;
+    
+    
+    //case 3
+    int b[]={1,2,3,4,5,6,7,8,9};
+    LinkedList *input3 = LinkedList::createList(b, b+9);
+    for(int i=1; i<=9; ++i){
+	if(chapter2.Problem_2(input3,i)->value!=10-i)
+	    return false;
+    }
+    return true;
+}
 
+bool Chapter2_test::Problem_3_test(){
+    Chapter2 chapter2;
+    //case 1
+    LinkedList *input1 = NULL;
+    LinkedList *middle = NULL;
+    chapter2.Problem_3(middle);
+    if(input1!=NULL)
+	return false;
+    //case 2
+    int b[]={1,2};
+    LinkedList *input2 = LinkedList::createList(b, b+2);
+    chapter2.Problem_3(input2);
+    if(input2->value!=2 || input2->next!=NULL)
+	return false;
+
+    //case 3
+    int c[]={1,2,3,4,5,6,7,8,9,10,11};
+    LinkedList *input3 = LinkedList::createList(c, c+11);
+    middle = input3;
+    for(int i=0; i<5; ++i)
+	middle = middle->next;
+    chapter2.Problem_3(middle);
+    int correctResult[]={1,2,3,4,5,7,8,9,10,11};
+    int count = 0;
+    for(LinkedList *curr = input3; curr!=NULL; curr=curr->next){
+	if(curr->value!=correctResult[count])
+	    return false;
+	++count;
+    }
+    return true;
+}
+
+bool Chapter2_test::Problem_4_test(){
+    Chapter2 chapter2;
+    //case 1
+    LinkedList *input1 = NULL;
+    if(chapter2.Problem_4(input1, 5)!=NULL)
+	return false;
+    //caes 2
+    int a[]={1,8,11,2,9,10,14,7,11,15,14,22,3};
+    LinkedList *input = LinkedList::createList(a, a+13);
+    LinkedList *result = chapter2.Problem_4(input, 9);
+    int count = 0;
+    for(LinkedList *curr = result; curr!=NULL; curr=curr->next){
+	if((count<5 && curr->value>=9)||(count>=5 && curr->value<9))
+	    return false;
+	++count;
+    }
+    return true;
+}
 
 int main(){
     Chapter2_test testor;
@@ -76,7 +149,7 @@ int main(){
 	cout<<"Test 1 Passed!"<<endl;
 
     //--- Problem 2 test ---
-    /*if(!testor.Problem_2_test())
+    if(!testor.Problem_2_test())
 	cout<<"Test 2 Failed!!!!!"<<endl;
     else
 	cout<<"Test 2 Passed!"<<endl;
@@ -94,7 +167,7 @@ int main(){
 	cout<<"Test 4 Passed!"<<endl;
 
      //--- Problem 5 test ---
-    if(!testor.Problem_5_test())
+    /*if(!testor.Problem_5_test())
 	cout<<"Test 5 Failed!!!!!"<<endl;
     else
 	cout<<"Test 5 Passed!"<<endl;
