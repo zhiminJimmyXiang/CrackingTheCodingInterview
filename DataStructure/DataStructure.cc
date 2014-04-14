@@ -10,18 +10,28 @@ string String::positiveIntToString(int num){
     return (result.size()==0? string(1, '0'):result);
 }
 
-LinkedList* LinkedList::deleteNode(LinkedList *head, LinkedList *curr){
-    if(head==NULL || curr==NULL)
-	return NULL;
-    if(head==curr){
-	head = head->next;
+LinkedList* LinkedList::deleteNode(LinkedList *head, LinkedList *currPrev, LinkedList *curr){
+    if(curr==head){
+	head = curr->next;
 	delete curr;
-	return head;
     }
-    LinkedList *pre = head;
-    while(pre->next!=curr)
-	pre = pre->next;
-    pre->next = curr->next;
-    delete curr;
+    else{
+	currPrev->next = curr->next;
+	delete curr;
+    }
     return head;
+}
+
+LinkedList *LinkedList::createList(int *begin, int *end){
+    LinkedList *result  = new LinkedList();
+    LinkedList *tail = result;
+    tail->next = NULL;
+    for(int *curr = begin; curr!=end; ++curr){
+	tail->next = new LinkedList();
+	tail->next->value = *curr;
+	tail = tail->next;
+    }
+    LinkedList *temp = result->next;
+    delete result;
+    return temp;
 }

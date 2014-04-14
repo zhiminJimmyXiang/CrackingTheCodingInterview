@@ -23,7 +23,8 @@ class LinkedList{
  public:
     int value;
     LinkedList * next;
-    static LinkedList* deleteNode(LinkedList *head, LinkedList *curr);
+    static LinkedList* deleteNode(LinkedList *head, LinkedList *currPrev, LinkedList *curr);
+    static LinkedList* createList(int *begin, int *end);
     
 };
 
