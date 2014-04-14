@@ -170,6 +170,7 @@ LinkedList *Chapter2::Problem_5_reverse(LinkedList *num1st, LinkedList *num2nd){
     if(prev==1){
 	tail->next = new LinkedList();
 	tail->next->value = 1;
+	tail = tail->next;
     }
     tail->next = NULL;
     return result->next;
@@ -190,6 +191,8 @@ int Chapter2::addDigit(LinkedList *&sumDigit, LinkedList *num1st, LinkedList *nu
 
 
 LinkedList *Chapter2::Problem_5_forward(LinkedList *num1st, LinkedList *num2nd){
+    if(num1st==NULL || num2nd==NULL)
+	return NULL;
     int size1st(0), size2nd(0);
     for(LinkedList *curr = num1st; curr!=NULL; curr=curr->next){
 	++size1st;

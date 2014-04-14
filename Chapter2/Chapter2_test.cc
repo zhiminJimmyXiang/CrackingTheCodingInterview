@@ -140,6 +140,47 @@ bool Chapter2_test::Problem_4_test(){
     return true;
 }
 
+bool Chapter2_test::Problem_5_test(){
+    Chapter2 chapter2;
+    //case 1
+    LinkedList *input1 = NULL;
+    int a[]={1,2,3};
+    LinkedList *input2 = LinkedList::createList(a, a+3);
+    LinkedList *resultReverse = chapter2.Problem_5_reverse(input1, input2);
+    if(resultReverse!=NULL)
+	return false;
+    LinkedList *resultForward = chapter2.Problem_5_forward(input1, input2);
+    if(resultForward!=NULL)
+	return false;
+ 
+    //case 2
+    int b[]={9,9,8,9,9};
+    input1 = LinkedList::createList(b, b+5);
+    int correctReverse[]={0,2,2,0,0,1};
+    resultReverse = chapter2.Problem_5_reverse(input1, input2);
+    int count = 0;
+    for(LinkedList*curr = resultReverse; curr!=NULL; curr=curr->next){
+	if(curr->value!=correctReverse[count])
+	    return false;
+	++count;
+    }
+    if(count<6)
+	return false;
+
+    int correctForward[]={1,0,0,0,2,2};
+    resultForward = chapter2.Problem_5_forward(input1, input2);
+    count = 0;
+    for(LinkedList*curr = resultForward; curr!=NULL; curr=curr->next){
+	if(curr->value!=correctForward[count])
+	    return false;
+	++count;
+    }
+    if(count<6)
+	return false;
+    return true;
+    
+}
+
 int main(){
     Chapter2_test testor;
     //--- Problem 1 test ---
@@ -167,13 +208,13 @@ int main(){
 	cout<<"Test 4 Passed!"<<endl;
 
      //--- Problem 5 test ---
-    /*if(!testor.Problem_5_test())
+    if(!testor.Problem_5_test())
 	cout<<"Test 5 Failed!!!!!"<<endl;
     else
 	cout<<"Test 5 Passed!"<<endl;
 
     //--- Problem 6 test ---
-    if(!testor.Problem_6_test())
+    /*if(!testor.Problem_6_test())
 	cout<<"Test 6 Failed!!!!!"<<endl;
     else
 	cout<<"Test 6 Passed!"<<endl;
