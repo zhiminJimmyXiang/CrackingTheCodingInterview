@@ -178,7 +178,59 @@ bool Chapter2_test::Problem_5_test(){
     if(count<6)
 	return false;
     return true;
-    
+}
+
+bool Chapter2_test::Problem_6_test(){
+    Chapter2 chapter2;
+    //case 1
+    LinkedList *input = NULL;
+    if(chapter2.Problem_6(input)!=NULL)
+	return false;
+
+    //case 2
+    int a[]={1,2,3,4,5,6,7,8,9,10,11,12};
+    vector<LinkedList*> iterArray;
+    input = LinkedList::createList(a, a+12);
+    for(LinkedList *curr = input; curr!=NULL; curr=curr->next)
+	iterArray.push_back(curr);
+    iterArray[iterArray.size()-1]->next = iterArray[2];
+    if(chapter2.Problem_6(input)->value!=3){
+	cout<<chapter2.Problem_6(input)->value<<endl;
+	return false;
+    }
+    return true;
+}
+
+bool Chapter2_test::Problem_7_test(){
+    Chapter2 chapter2;
+    //case 1
+    LinkedList *input = NULL;
+    if(chapter2.Problem_7_reverse(input)==true)
+	return false;
+    if(chapter2.Problem_7_recursive(input)==true)
+	return false;
+    //case 2
+    int a[]={1,2,3,4,4,3,2,1};
+    input = LinkedList::createList(a, a+8);
+    if(chapter2.Problem_7_reverse(input)==false)
+	return false;
+    if(chapter2.Problem_7_recursive(input)==false)
+	return false;
+    //case 3
+    int b[]={1,2,3,4,3,2,1};
+    input = LinkedList::createList(b, b+7);
+    if(chapter2.Problem_7_reverse(input)==false)
+	return false;
+    if(chapter2.Problem_7_recursive(input)==false)
+	return false;
+    //case 4
+    int c[]={1,2,3,4,2,1};
+    input = LinkedList::createList(b, b+6);
+    if(chapter2.Problem_7_reverse(input)==true)
+	return false;
+    if(chapter2.Problem_7_recursive(input)==true)
+	return false;
+    return true;
 }
 
 int main(){
@@ -214,7 +266,7 @@ int main(){
 	cout<<"Test 5 Passed!"<<endl;
 
     //--- Problem 6 test ---
-    /*if(!testor.Problem_6_test())
+    if(!testor.Problem_6_test())
 	cout<<"Test 6 Failed!!!!!"<<endl;
     else
 	cout<<"Test 6 Passed!"<<endl;
@@ -223,7 +275,7 @@ int main(){
     if(!testor.Problem_7_test())
 	cout<<"Test 7 Failed!!!!!"<<endl;
     else
-	cout<<"Test 7 Passed!"<<endl;*/
+	cout<<"Test 7 Passed!"<<endl;
     
     return 0;
 }

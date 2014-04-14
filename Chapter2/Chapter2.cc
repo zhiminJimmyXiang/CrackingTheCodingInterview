@@ -237,13 +237,16 @@ LinkedList *Chapter2::Problem_6(LinkedList *head){
     if(head==NULL || head->next == NULL)
 	return NULL;
     LinkedList* slowIter(head), *quickIter(head);
-    while(quickIter!=NULL && quickIter!=slowIter){
+    int flag = 0;
+    while(quickIter!=NULL && (quickIter!=slowIter || flag==0)){
+	flag = 1;
 	slowIter = slowIter->next;
 	if(quickIter->next!=NULL)
 	    quickIter = quickIter->next->next;
 	else
 	    return NULL;
     }
+    
     while(head!=slowIter){
 	head = head->next;
 	slowIter = slowIter->next;
@@ -255,7 +258,7 @@ LinkedList *Chapter2::Problem_6(LinkedList *head){
  Implement a function to check if a linked list is a palindrome,
  */
 //reverse and compare
-bool Chapter2::Problem_7_1(LinkedList *head){
+bool Chapter2::Problem_7_reverse(LinkedList *head){
     if(head==NULL)
 	return false;
     LinkedList *reverseList = NULL;
@@ -304,7 +307,7 @@ bool Chapter2::recursivePalindrome(LinkedList *forward, LinkedList *&reverseNext
 	return false;
 }
 
-bool Chapter2::Problem_7_2(LinkedList *head){
+bool Chapter2::Problem_7_recursive(LinkedList *head){
     if(head==NULL)
 	return false;
     LinkedList *slowIter(head), *quickIter(head->next);

@@ -13,8 +13,8 @@ class Chapter2{
     LinkedList* Problem_5_reverse(LinkedList *num1st, LinkedList *num2nd);
     LinkedList* Problem_5_forward(LinkedList *num1st, LinkedList *num2nd);
     LinkedList* Problem_6(LinkedList *head);
-    bool Problem_7_1(LinkedList *head);
-    bool Problem_7_2(LinkedList *head);
+    bool Problem_7_reverse(LinkedList *head);
+    bool Problem_7_recursive(LinkedList *head);
 };
 
 
