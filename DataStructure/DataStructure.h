@@ -10,6 +10,7 @@
 #include <string>
 #include <cstring>
 #include <stdio.h>
+#include <limits.h>
 using namespace std;
 
 typedef vector<vector<int> > MATRIX;
