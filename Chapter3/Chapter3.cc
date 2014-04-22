@@ -101,11 +101,11 @@ Write a program to move the disks from the first tower to the last using Stacks.
 
 void Chapter3::move(int n, int source, int target, int temp){
     if(n==1){
-	cout<<"move the 1 plate from"<<source<<" to "<<target<<endl;
+	cout<<"move the 1 plate from "<<source<<" to "<<target<<endl;
 	return;
     }
     move(n-1, source, temp, target);
-    cout<<"move the "<<n<<" plate from"<<source<<" to "<<target<<endl;
+    cout<<"move the "<<n<<" plate from "<<source<<" to "<<target<<endl;
     move(n-1, temp, target, source);
 }
 
