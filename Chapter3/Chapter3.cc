@@ -179,7 +179,9 @@ void Chapter3::Problem_6(vector<int> &oriStack){
 /*Problem 7
 An animal shelter holds only dogs and cats, and operates on a strictly "first in, first out" basis. People must adopt either the "oldest" (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a cat (and will receive the oldest animal of that type). They cannot select which specific animal they would like. Create the data structures to maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog and dequeueCat. You may use the built-in L inkedL ist data structure
 */
-void Problem_7::enqueue(const Animal &a){
+void Problem_7::enqueue(Animal &a){
+    a.time=count;
+    ++count;
     if(a.type==1)
 	dogQueue.push_back(a);
     else if(a.type==2)
@@ -192,8 +194,8 @@ Animal Problem_7::dequeueAny(){
 	nullAnimal.type = 0;
 	return nullAnimal;
     }
-    int dogTime = (dogQueue.empty()?INT_MAX:dogQueue.back().time);
-    int catTime = (catQueue.empty()?INT_MAX:catQueue.back().time);
+    int dogTime = (dogQueue.empty()?INT_MAX:dogQueue.front().time);
+    int catTime = (catQueue.empty()?INT_MAX:catQueue.front().time);
     if(dogTime<catTime){
 	Animal dog = dogQueue.front();
 	dogQueue.pop_front();

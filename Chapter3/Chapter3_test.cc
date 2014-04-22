@@ -72,6 +72,76 @@ bool Chapter3_test::Problem_5_test(){
     
 }
 
+bool Chapter3_test::Problem_6_test(){
+    Chapter3 chapter3;
+    //case 1
+    vector<int> input;
+    chapter3.Problem_6(input);
+    if(!input.empty())
+	return false;
+    //case 2
+    int a[]={5,92,18,-1,9,2,4,0,8,4,0,2,0};
+    int correctAnswer[]={-1,0,0,0,2,2,4,4,5,8,9,18,92};
+    input.assign(a, a+13);
+    chapter3.Problem_6(input);
+    if(input.size()!=13)
+	return false;
+    for(unsigned i=0; i<13; ++i){
+	if(input[i]!=correctAnswer[i])
+	    return false;
+    }
+    return true;
+}
+
+bool Chapter3_test::Problem_7_test(){
+    Chapter3 chapter3;
+    vector<Animal> animalVec;
+    //case 1
+    Animal a1 = chapter3.problem_7.dequeueAny();
+    Animal a2 = chapter3.problem_7.dequeueDog();
+    Animal a3 = chapter3.problem_7.dequeueCat();
+    if(a1.type!=0 || a2.type!=0 || a3.type!=0)
+	return false;
+    //case 2
+    for(int i=0; i<16; ++i){
+	Animal animal;
+	animal.type=(i%2==0?1:2);
+	animal.id = i;
+	chapter3.problem_7.enqueue(animal);
+    }
+    for(int i=0; i<16; ++i){
+	Animal animal = chapter3.problem_7.dequeueAny();
+	if(animal.type!=(i%2==0?1:2) || animal.time!=i || animal.id!=i)
+	    return false;
+    }
+    //case 3
+    for(int i=0; i<16; ++i){
+	Animal animal;
+	animal.type=(i%2==0?1:2);
+	animal.id = i;
+	chapter3.problem_7.enqueue(animal);
+    }
+    for(int i=0; i<16; i+=2){
+	Animal animal = chapter3.problem_7.dequeueDog();
+	if(animal.type!=1 || animal.id!=i)
+	    return false;
+    }
+    //case 4
+    for(int i=0; i<16; ++i){
+	Animal animal;
+	animal.type=(i%2==0?1:2);
+	animal.id = i;
+	chapter3.problem_7.enqueue(animal);
+    }
+    for(int i=1; i<16; i+=2){
+	Animal animal = chapter3.problem_7.dequeueCat();
+	if(animal.type!=2 || animal.id!=i)
+	    return false;
+    }
+    return true;
+    
+}
+
 int main(){
     Chapter3_test testor;
     //--- Problem 2 test ---
@@ -95,6 +165,18 @@ int main(){
 	cout<<"Test 5 Failed!!!!!"<<endl;
     else
 	cout<<"Test 5 Passed!"<<endl;
+
+    //--- Problem 6 test ---
+    if(!testor.Problem_6_test())
+	cout<<"Test 6 Failed!!!!!"<<endl;
+    else
+	cout<<"Test 6 Passed!"<<endl;
+
+    //--- Problem 7 test ---
+    if(!testor.Problem_7_test())
+	cout<<"Test 7 Failed!!!!!"<<endl;
+    else
+	cout<<"Test 7 Passed!"<<endl;
     
     return 0;
 }

@@ -49,8 +49,10 @@ class Problem_7{
  private:
     list<Animal> catQueue; 
     list<Animal> dogQueue; 
+    int count;
  public:
-    void enqueue(const Animal &a);
+    Problem_7(){count=0;};
+    void enqueue(Animal &a);
     Animal dequeueAny();
     Animal dequeueDog();
     Animal dequeueCat();
