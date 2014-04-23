@@ -11,6 +11,7 @@
 #include <cstring>
 #include <stdio.h>
 #include <limits.h>
+#include <algorithm>
 using namespace std;
 
 typedef vector<vector<int> > MATRIX;
@@ -29,5 +30,25 @@ class LinkedList{
     
 };
 
+class BTree{
+ public:
+    int value;
+    BTree *left;
+    BTree *right;
+    BTree(){value=0; left=NULL; right=NULL;};
+};
 
+class BTreeParent{
+ public:
+    int value;
+    BTreeParent *left;
+    BTreeParent *right;
+    BTreeParent *parent;
+    BTreeParent()  {value=0; left=NULL; right=NULL; parent=NULL;};
+};
+
+class Graph{
+ public:
+    vector<list<int> > graph;
+} ;
 #endif
