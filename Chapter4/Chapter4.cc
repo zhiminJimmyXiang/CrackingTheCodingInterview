@@ -108,7 +108,7 @@ Given a binary tree, design an algorithm which creates a linked list of all the 
 void Chapter4::createLinkedList(BTree *root, vector<list<BTree*> > &result, int height){
     if(root==NULL)
 	return;
-    if(result.size()>=height){
+    if(result.size()<=height){
 	list<BTree *> temp(1, root);
 	result.push_back(temp);
     }
@@ -141,8 +141,11 @@ bool Chapter4::checkBinaryTree(BTree *root, int &maxVal, int &minVal){
     bool rightResult = checkBinaryTree(root->right, maxRightVal, minRightVal);
     if(rightResult==false)
 	return false;
-    if(root->value>=maxLeftVal && root->value<=minRightVal)
+    if(root->value>=maxLeftVal && root->value<=minRightVal){
+	maxVal = (root->right==NULL?root->value:maxRightVal);
+	minVal = (root->left==NULL?root->value:minLeftVal);
 	return true;
+    }
     return false;
 }
 
@@ -173,6 +176,8 @@ BTreeParent *Chapter4::findLeftAncestor(BTreeParent *curr){
 }
 
 BTreeParent *Chapter4::Problem_6(BTreeParent *curr){
+    if(curr==NULL)
+	return NULL;
     BTreeParent *nextChild = findLeftMostNode(curr->right);
     if(nextChild!=NULL)
 	return nextChild;
@@ -186,7 +191,7 @@ in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This
 necessarily a binary search tree.
 */
 
-BTree *Chapter4::findCommonAncestor(BTree *root, const BTree * &first, const BTree *& second, int &state) {// state 0: no node, state 1: only first node, state 2: only right node
+BTree *Chapter4::findCommonAncestor(BTree *root, BTree * &first, BTree *& second, int &state) {// state 0: no node, state 1: only first node, state 2: only right node
     if(root==NULL){
 	state = 0;
 	return NULL;
@@ -222,7 +227,7 @@ BTree *Chapter4::findCommonAncestor(BTree *root, const BTree * &first, const BTr
     }
 }
 
-BTree *Chapter4::Problem_7(BTree *root, const BTree * &first, const BTree *& second){
+BTree *Chapter4::Problem_7(BTree *root, BTree * &first, BTree *& second){
     int state;
     return findCommonAncestor(root, first, second, state);
 }
@@ -281,7 +286,7 @@ rithm to print all paths which sum to a given value. The path does not need to s
 
 void Chapter4::printPath(const vector<int> &pathSum, int i){
     cout<<"path: "<<flush;
-    for(size_t k=i; k<pathSum.size(); ++k){
+    for(size_t k=i; k<pathSum.size()-1; ++k){
 	cout<<pathSum[k]-pathSum[k+1]<<" "<<flush;
     }
     cout<<pathSum.back()<<endl;
@@ -304,7 +309,7 @@ void Chapter4::findCorrectPath(BTree *root, int sum, vector<int> &pathSum){
 	pathSum[i]-=root->value;
 }
 
-void Chapter4::Problem_7(BTree *root, int sum){
+void Chapter4::Problem_9(BTree *root, int sum){
     vector<int> pathSum;
     findCorrectPath(root, sum, pathSum);
 }

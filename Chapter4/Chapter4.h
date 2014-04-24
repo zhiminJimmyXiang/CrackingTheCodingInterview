@@ -10,7 +10,7 @@ class Chapter4{
     BTreeParent* findLeftMostNode(BTreeParent *curr);
     BTreeParent *findLeftAncestor(BTreeParent *curr);
 
-    BTree *findCommonAncestor(BTree *root, const BTree * &first, const BTree *& second, int &state);
+    BTree *findCommonAncestor(BTree *root, BTree * &first, BTree *& second, int &state);
 
     bool compareTrees(BTree *rootFirst, BTree *rootSecond);
     void printPath(const vector<int> &pathSum, int i);
@@ -24,9 +24,9 @@ class Chapter4{
     void Problem_4(BTree *root, vector<list<BTree*> > &result);
     bool Problem_5(BTree *root);
     BTreeParent* Problem_6(BTreeParent *curr);
-    BTree *Problem_7(BTree *root, const BTree * &first, const BTree *& second);
+    BTree *Problem_7(BTree *root, BTree * &first, BTree *& second);
     bool Problem_8(BTree *largeTree, BTree *smallTree);
-    void Problem_7(BTree *root, int sum);
+    void Problem_9(BTree *root, int sum);
 };
 
 
@@ -44,4 +44,6 @@ class Chapter4_test{
     bool Problem_5_test();
     bool Problem_6_test();
     bool Problem_7_test();
+    bool Problem_8_test();
+    bool Problem_9_test();
 };
