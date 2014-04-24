@@ -96,6 +96,47 @@ bool Chapter4_test::Problem_1_test(){
     return true;
 }
 
+bool Chapter4_test::Problem_2_test(){
+    Chapter4 chapter4;
+    Graph graphInput;
+    //case 1
+    if(chapter4.Problem_2_BFS(0,1,graphInput)==true)
+	return false;
+    if(chapter4.Problem_2_DFS(0,1,graphInput)==true)
+	 return false;
+  
+    
+    //case 2
+    int a0[]={1};
+    int a1[]={2,3};
+    int a3[]={4};
+    int a4[]={2};
+    graphInput.graph.push_back(list<int>(a0, a0+1));
+    graphInput.graph.push_back(list<int>(a1, a1+2));
+    graphInput.graph.push_back(list<int>());
+    graphInput.graph.push_back(list<int>(a3, a3+1));
+    graphInput.graph.push_back(list<int>(a4, a4+1));
+    if(chapter4.Problem_2_BFS(0,4, graphInput)==false)
+	return false;
+    if(chapter4.Problem_2_DFS(0,4, graphInput)==false)
+	return false;
+    
+    //case 3
+    if(chapter4.Problem_2_BFS(0,2, graphInput)==false)
+	return false;
+    if(chapter4.Problem_2_DFS(0,2, graphInput)==false)
+	return false;
+
+    //case 4
+    if(chapter4.Problem_2_BFS(2,0, graphInput)==true)
+	return false;
+    if(chapter4.Problem_2_DFS(2,0, graphInput)==true)
+	return false;
+    
+    return true;
+     
+}
+
 bool Chapter4_test::Problem_3_test(){
     Chapter4 chapter4;
     int a[]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
@@ -294,6 +335,12 @@ int main(){
 	cout<<"Test 1 Failed!!!!!"<<endl;
     else
 	cout<<"Test 1 Passed!"<<endl;
+    
+    //--- Problem 1 test ---
+    if(!testor.Problem_2_test())
+	cout<<"Test 2 Failed!!!!!"<<endl;
+    else
+	cout<<"Test 2 Passed!"<<endl;
 
     //--- Problem 3 test ---
     if(!testor.Problem_3_test())

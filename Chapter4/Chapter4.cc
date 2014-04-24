@@ -70,7 +70,7 @@ bool Chapter4::Problem_2_DFS(int source, int target, const Graph &graphInput){
 	 if(visitedNode[currNode]==false){
 	     visitedNode[currNode]=true;
 	     for(list<int>::const_iterator iter=graphInput.graph[currNode].begin(); iter!=graphInput.graph[currNode].end(); ++iter){
-		 if(visitedNode[*iter]=false)
+		 if(visitedNode[*iter]==false)
 		     frontier.push_back(*iter);
 	     }
 	 }
