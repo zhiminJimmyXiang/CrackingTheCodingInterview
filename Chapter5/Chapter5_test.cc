@@ -166,11 +166,7 @@ bool Chapter5_test::Problem_8_test(){
     }
     
     
-    return true;
-	
-
-    
-    
+    return true;    
 }
 
 int main(){
