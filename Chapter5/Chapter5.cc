@@ -1,3 +1,4 @@
+#include "Chapter5.h"
 
 /*Problem 1
 You are given two 32-bit numbers, N andM, and two bit positions, i and j. Write a
@@ -6,11 +7,11 @@ that the bits j through i have enough space to fit all of M. That is, i fM= 1001
 you can assume that there are at least 5 bits between j and i. You would not, for
 example, have j=3 and i=2, because M could not fully fit between bit 3 and bit 2.
 */
-int Chapter5::Problem_1(int M, int N, int i, int j){
-    int numBits = j-i+1;
-    int mask = ~((1<<numBits-1)<<i);
-    M&=mask;
-    N=<<i;
+unsigned Chapter5::Problem_1(unsigned M, unsigned N, unsigned i, unsigned j){
+    unsigned numBits = j-i+1;
+    unsigned mask = ~(((1<<numBits)-1)<<i);
+    N&=mask;
+    M<<=i;
     return M | N;
 }
 
@@ -49,7 +50,7 @@ have the same number of 1 bits in their binary representation.
 
 unsigned Chapter5::findPreviousSmallest(unsigned input){
     bool flagEven = (input%2==0?true:false);
-    bool falgZero = false;
+    bool flagZero = false;
     unsigned posZero(0), countOne(0);
     unsigned data = input;
     while((flagZero==false || data%2==0) && (data!=0)){
@@ -61,21 +62,24 @@ unsigned Chapter5::findPreviousSmallest(unsigned input){
 	++posZero;
     }
     if(data==0)
-	return -1;
+	return 0;
     
     unsigned mask = 3<<(posZero-1);
     input = input ^ mask;
     if(flagEven)
 	return input;
-
-    unsigned k=1<<countOne-1;
-    k<<=(posZero-countOne-1);
-    return input | k;
+    mask = (1<<countOne)-1;
+    input  = input &(~mask);
+    mask<<=(posZero-countOne-1);
+    return input | mask;
 }
 
 unsigned Chapter5::findNextLargest(unsigned input){
     input = input ^ UINT_MAX;
-    return findPreviousSmallest(input);
+    unsigned result = findPreviousSmallest(input);
+    if(result==0)
+	return result;
+    return result^UINT_MAX;
 }
 
 
@@ -125,6 +129,12 @@ to access them is "fetch the jth bit ofA[i]," which takes constant time. Write c
 find the missing integer. Can you do it in 0(n) time?
 */
 
+bool Chapter5::getBit(const vector<unsigned> &A, int currIndex, int bitPos){
+    unsigned num = A[currIndex];
+    if((num>>bitPos)&1==1)
+	return true;
+    return false;
+}
 
 unsigned Chapter5::Problem_7(unsigned n, const vector<unsigned> &A){
     list<unsigned> listZero;
@@ -134,6 +144,7 @@ unsigned Chapter5::Problem_7(unsigned n, const vector<unsigned> &A){
     list<unsigned> *listPtr = &listZero;
     unsigned size = listPtr->size();
     unsigned result = 0;
+    unsigned bitPos = 0;
     while(size>0){
 	for(unsigned i=0; i<size; ++i){
 	    unsigned currIndex = *(listPtr->begin());
