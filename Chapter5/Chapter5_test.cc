@@ -117,6 +117,59 @@ bool Chapter5_test::Problem_6_test(){
 }
 
 bool Chapter5_test::Problem_7_test(){
+    Chapter5 chapter5;
+    //case 1
+    unsigned a[]={0,1,2,3,4,6,7,8,9,10};
+    vector<unsigned> A(a, a+10);
+    unsigned result =  chapter5.Problem_7(10, A);
+    if(result!=5)
+	return false;
+
+    //case 2
+    unsigned b[]={0,1,2,3,4,5,6,7,8,9};
+    A.assign(b, b+10);
+    result = chapter5.Problem_7(10, A);
+    if(result!=10)
+	return false;
+    return true;
+}
+
+bool Chapter5_test::Problem_8_test(){
+    Chapter5 chapter5;
+    //case 1
+    char temp[]={0,0,0,0,0,0,0,0,0};
+    vector<char> screen(temp, temp+9);
+    chapter5.Problem_8(screen, 24, 1, 11, 2);
+    char correct[]={0,0,0,0,0,0,0x7F,0xF0, 0};
+    for(unsigned i=0; i<9; ++i){
+	//cout<<bitset<8>(screen[i])<<" "<<flush;
+	if(screen[i]!=correct[i])
+	    return false;
+    }
+    
+    //case 2
+    screen.assign(temp, temp+9);
+    chapter5.Problem_8(screen, 24, 1, 2, 2);
+    char correct2[]={0,0,0,0,0,0,0x60,0, 0};
+    for(unsigned i=0; i<9; ++i){
+	if(screen[i]!=correct2[i])
+	return false;
+    }
+    
+    //case 3
+    screen.assign(temp, temp+9);
+    chapter5.Problem_8(screen, 24, 1, 4, 2);
+    char correct3[]={0,0,0,0,0,0,0x78,0, 0};
+    for(unsigned i=0; i<9; ++i){
+	if(screen[i]!=correct3[i])
+	return false;
+    }
+    
+    
+    return true;
+	
+
+    
     
 }
 
@@ -151,6 +204,11 @@ int main(){
 	cout<<"Test 7 Failed!!!!!"<<endl;
     else
 	cout<<"Test 7 Passed!"<<endl;
+    
+    if(!testor.Problem_8_test())
+	cout<<"Test 8 Failed!!!!!"<<endl;
+    else
+	cout<<"Test 8 Passed!"<<endl;
     
     
     return 0;

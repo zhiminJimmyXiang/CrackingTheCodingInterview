@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <algorithm>
+#include <bitset>
 using namespace std;
 
 typedef vector<vector<int> > MATRIX;

@@ -202,7 +202,7 @@ void Chapter5::Problem_8(vector<char> &screen, int width, int x1, int x2, int y)
     if(byteX1==byteX2){
 	x1=x1%8;
 	x2=x2%8;
-	char mask=(1<<(x2-x1+1)-1)<<(7-x2);
+	char mask=((1<<x2-x1+1)-1)<<(7-x2);
 	screen[byteX1+y*width/8]|=mask;
     }
     else{
