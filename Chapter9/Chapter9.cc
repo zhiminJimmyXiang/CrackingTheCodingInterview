@@ -115,14 +115,15 @@ Write a method to return all subsets of a set
 void Chapter9::getAllSubset(const vector<int> & wholeSet, int i, vector<vector<int> > &results){
     if(i==wholeSet.size()-1){
 	vector<int> temp;
+	results.push_back(temp);
 	temp.push_back(wholeSet[i]);
 	results.push_back(temp);
 	return;
     }
     getAllSubset(wholeSet, i+1, results);
     unsigned originalSize = results.size();
-    for(size_t i=0; i!=originalSize; ++i){
-	vector<int> temp(results[i].begin(), results[i].end());
+    for(size_t j=0; j!=originalSize; ++j){
+	vector<int> temp(results[j].begin(), results[j].end());
 	temp.push_back(wholeSet[i]);
 	results.push_back(temp);
     }
@@ -143,7 +144,7 @@ void Chapter9::computePermutation(const string &oriStr, int i, list<string> &pre
     }
     computePermutation(oriStr, i+1, preResults);
     size_t preSize = preResults.size();
-    for(unsigned i=0; i<preSize; ++i){
+    for(unsigned j=0; j<preSize; ++j){
 	string temp = preResults.front();
 	preResults.pop_front();
 	for(size_t len = 0; len!=temp.size(); ++len){
@@ -163,7 +164,6 @@ Implement an algorithm to print all valid (i.e., properly opened and closed) com
 void Chapter9::printParenthese(int n, int leftNum, int rightNum, string &currResult){
     if(leftNum==n && rightNum==n){
 	cout<<currResult<<endl;
-	currResult=currResult.substr(0, currResult.size()-1);
 	return;
     }
     if(leftNum<n){
@@ -190,7 +190,7 @@ programs. That is, given a screen (represented by a two-dimensional array of col
 */
 
 void Chapter9::paintFill(vector<vector<int> > &screen, int x, int y, int oriColor, int newColor){
-    if(x<0 || x<screen[0].size() || y<0 || y>=screen.size())
+    if(x<0 || x>=screen[0].size() || y<0 || y>=screen.size())
 	return;
     if(screen[y][x]==oriColor){
 	screen[y][x]=newColor;
@@ -211,6 +211,7 @@ and pennies (1 cent), write code to calculate the number of ways of representing
 */
 
 int Chapter9::calculateNumOfRepresenting(int n, const vector<int> &components, int i, vector<vector<int> > &prevResult){
+   
     if(n==0)
 	return 1;
     if(prevResult[n][i]!=-1)
@@ -253,6 +254,7 @@ void Chapter9::printEightQueens(int currRow, int size, vector<int> &preInput){
     if(currRow==size){
 	for(size_t j=0; j<preInput.size(); ++j)
 	    cout<<preInput[j]<<" "<<flush;
+	cout<<endl;
 	return;
     }
 

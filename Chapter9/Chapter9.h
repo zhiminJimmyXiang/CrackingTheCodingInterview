@@ -5,6 +5,7 @@ class Box{
     int height;
     int width;
     int depth;
+ Box(int newHeight, int newWidth, int newDepth):height(newHeight), width(newWidth), depth(newDepth){};
     bool above(const Box &box) const;
 };
 
