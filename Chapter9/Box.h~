@@ -1,0 +1,7 @@
+class Box{
+ public:
+    int height;
+    int width;
+    int depth;
+    bool above(const Box &box) const;
+};
