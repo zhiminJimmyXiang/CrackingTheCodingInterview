@@ -308,6 +308,9 @@ Given a boolean expression consisting of the symbols 0,1, &, |, and ^ , and a de
 */
 
 int Chapter9::countExpNum(const string &exp, bool result, map<pair<string, bool>, int> &preResult){
+   
+    if(exp.empty())
+	return 1;
     if((exp=="1" && result) ||  (exp=="0" && !result))
 	return 1;
     if((exp=="1" && !result) ||  (exp=="0" && result))
@@ -315,7 +318,7 @@ int Chapter9::countExpNum(const string &exp, bool result, map<pair<string, bool>
     if(preResult.find(make_pair(exp, result))!=preResult.end())
 	return preResult[make_pair(exp, result)];
     int totalNum = 0;
-    for(size_t len=1; len<exp.size()-2; len+=2){
+    for(size_t len=1; len<=exp.size()-2; len+=2){
 	int tempNum = 0;
 	char op = exp[len];
 	if(op=='&'){
