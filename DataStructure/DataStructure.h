@@ -52,4 +52,6 @@ class Graph{
  public:
     vector<list<int> > graph;
 } ;
+
+
 #endif
