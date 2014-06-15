@@ -10,6 +10,7 @@
 #include <string>
 #include <cstring>
 #include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
 #include <algorithm>
 #include <bitset>
