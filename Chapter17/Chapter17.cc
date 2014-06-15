@@ -350,59 +350,36 @@ void Chapter17::Problem_13(BiNode *root, BiNode *&head, BiNode *&tail){
 Problem 14
 */
 
-void Chapter17::createIndex(const set<string> &dict, vector<vector<int> > &index, const string &inputStr){
-    index.clear();
-    for(size_t i=0; i<inputStr.size(); ++i){
-	vector<int> currIndex;
-	for(size_t j=i+1; j<=inputStr.size(); ++j){
-	    if(dict.find(inputStr.substr(i, j-i))!=dict.end())
-		currIndex.push_back(j);
-	}
-	index.push_back(currIndex);
-    }
-}
-
-int Chapter17::getMinimumMismatchedChars(const string &inputStr, int start, vector<int> &prevResult, const vector<vector<int> > &index){
-    if(prevResult[start]!=-1)
-	return prevResult[start];
-    if(start==inputStr.size()){
+int Chapter17::Problem_14(const string &inputStr, const set<string> &dict, string &outputStr){
+    if(inputStr.empty()){
+	outputStr = "";
 	return 0;
     }
-    int minNum = 1+getMinimumMismatchedChars(inputStr, start+1, prevResult, index);
-    for(size_t i=0; i<index[start].size(); ++i){
-	int tempMinNum = getMinimumMismatchedChars(inputStr, start+index[start][i], prevResult, index);
-	minNum = min(minNum, tempMinNum);
-    }
-    prevResult[start] = minNum;
-    return minNum;
-}
-
-void Chapter17::getCorrectString(const string & inputStr, const vector<int> &prevResult, const vector<vector<int> > &index, string &strOut){
-    int i=0;
-    while(i<inputStr.size()){
-	bool flagBreak = false;
-	for(size_t j=0; j<index[i].size(); ++i){
-	    if(index[i][j]<inputStr.size() && prevResult[i]==prevResult[index[i][j]]){
-		strOut = strOut + inputStr.substr(i, index[i][j]-i)+" ";
-		i = index[i][j];
-		flagBreak = true;
-		break;
+    vector<int> unmatchNumArray(inputStr.size()+1, 0);
+    vector<int> spacePos(inputStr.size()+1, 0);
+    for(size_t i=1; i<inputStr.size()+1; ++i){
+	int minUnmatchNum = INT_MAX;
+	for(int j=i-1; j>=0; --j){
+	    int wordUnmatchNum = (dict.find(string(inputStr.begin()+j, inputStr.begin()+i))!=dict.end()?0:i-j);
+	    int currUnmatchNum = wordUnmatchNum+unmatchNumArray[j];
+	    if(currUnmatchNum<minUnmatchNum){
+		minUnmatchNum = currUnmatchNum;
+		spacePos[i] = j;
 	    }
 	}
-	if(flagBreak == false){
-	    strOut = strOut+inputStr.substr(i, 1)+" ";
-	    ++i;
-	}
-	
+	unmatchNumArray[i] = minUnmatchNum;
     }
-}
-int Chapter17::Problem_14(const string &inputStr, const set<string> &dict, string &strOut){
-    vector<vector<int> > index;
-    createIndex(dict, index, inputStr);
-    vector<int> prevResult(inputStr.size(), -1);
-    int minMismatchedNum = getMinimumMismatchedChars(inputStr, 0, prevResult, index);
-    getCorrectString(inputStr, prevResult, index, strOut); 
-    return minMismatchedNum;
+    outputStr.clear();
+    int startPos = spacePos.back(), endPos = inputStr.size();
+    while(startPos!=0){
+	outputStr = string(inputStr.begin()+startPos, inputStr.begin()+endPos)+" "+outputStr;
+	endPos = startPos;
+	startPos = spacePos[startPos];
+    }
+    outputStr = string(inputStr.begin(), inputStr.begin()+endPos)+" "+outputStr;
+    outputStr = string(outputStr.begin(), outputStr.begin()+outputStr.size()-1);
+    return unmatchNumArray.back();
+    
 }
 
 

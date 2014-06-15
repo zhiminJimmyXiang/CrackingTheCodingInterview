@@ -117,6 +117,16 @@ bool Chapter17_test::Problem_13_test(){
 }
 
 bool Chapter17_test::Problem_14_test(){
+    Chapter17 chapter17;
+    string wordArray[] = {"looked", "just", "like", "her",  "brother"};
+    set<string> dict(wordArray, wordArray+5);
+    string inputStr = "jesslookedjustliketimherbrother";
+    string strOut;
+    int mismatchCount = chapter17.Problem_14(inputStr, dict, strOut);
+    //cout<<strOut<<endl;
+    if(mismatchCount!=7)
+	return false;
+    return true;
 }
 
 int main(){
@@ -157,12 +167,17 @@ int main(){
 	cout<<"Test 8 Failed!!!!!"<<endl;
      else
 	cout<<"Test 8 Passed!"<<endl;
-
      
      //Problem 13
      if(!testor.Problem_13_test())
 	cout<<"Test 13 Failed!!!!!"<<endl;
      else
 	cout<<"Test 13 Passed!"<<endl;
-    return 0;
+
+      //Problem 14
+     if(!testor.Problem_14_test())
+	cout<<"Test 14 Failed!!!!!"<<endl;
+     else
+	cout<<"Test 14 Passed!"<<endl;
+     return 0;
 }

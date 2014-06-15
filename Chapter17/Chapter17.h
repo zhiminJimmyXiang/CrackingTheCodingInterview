@@ -31,8 +31,6 @@ class Chapter17{
     void Problem_13(BiNode *root, BiNode *&head, BiNode *&tail);
     void createIndex(const set<string> &dict, vector<vector<int> > &index, const string &inputStr);
     int rand5();
-    int getMinimumMismatchedChars(const string &inputStr, int start, vector<int> &prevResult, const vector<vector<int> > &index);
-    void getCorrectString(const string & inputStr, const vector<int> &prevResult, const vector<vector<int> > &index, string &strOut);
     int Problem_14(const string &inputStr, const set<string> &dict, string &strOut);
     
 };
