@@ -35,3 +35,29 @@ LinkedList *LinkedList::createList(int *begin, int *end){
     delete result;
     return temp;
 }
+
+void SuffixTree::insertString(const string &str){
+    SuffixTreeNode *curr = &root;
+    for(size_t i=0; i!=str.size(); ++i){
+	if(curr->childNodes.find(str[i])==curr->childNodes.end())
+	    curr->childNodes[str[i]]=new SuffixTreeNode();
+	curr = curr->childNodes[str[i]];
+    }
+}
+
+SuffixTree::SuffixTree(const string &str){
+    for(size_t i=0; i!=str.size(); ++i){
+	insertString(string(str.begin(), str.begin()+i+1));
+    }
+}
+
+bool SuffixTreeNode* SuffixTree::searchString(const string &str){
+    SuffixTreeNode *curr= &root;
+    for(size_t i=0; i!=str.size(); ++i){
+	if(curr->childNodes.find(str[i])==curr->childeNodes.end())
+	    return false;
+	else
+	    curr=curr->childeNodes[str[i]];
+    }
+    return true;
+}

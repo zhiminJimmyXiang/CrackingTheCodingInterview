@@ -14,6 +14,7 @@
 #include <limits.h>
 #include <algorithm>
 #include <bitset>
+#include <queue>
 using namespace std;
 
 typedef vector<vector<int> > MATRIX;
@@ -54,5 +55,17 @@ class Graph{
     vector<list<int> > graph;
 } ;
 
+class SuffixTreeNode{
+ public:
+    map<char, SuffixTreeNode *> childNodes;
+};
+
+class SuffixTree{
+ pulic:
+    SuffixTreeNode root;
+    void insertString(const string &str);
+    SuffixTreeNode(const string &str);
+    bool searchString(const string &str);
+};
 
 #endif
