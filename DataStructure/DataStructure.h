@@ -61,10 +61,10 @@ class SuffixTreeNode{
 };
 
 class SuffixTree{
- pulic:
+ public:
     SuffixTreeNode root;
     void insertString(const string &str);
-    SuffixTreeNode(const string &str);
+    SuffixTree(const string &str);
     bool searchString(const string &str);
 };
 

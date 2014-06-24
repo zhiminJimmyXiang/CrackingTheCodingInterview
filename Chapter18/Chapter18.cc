@@ -41,7 +41,7 @@ unsigned Chapter18::Problem_4(unsigned a){
     unsigned i=10, factor=a/i, result=0, res=a%i;
     bool flag = false;
     while(factor!=0){
-	result = computeResult(res, factor i/10, result);
+	result = computeResult(res, factor, i/10, result);
 	if(UINT_MAX/10>=i){
 	    i=i*10;
 	    factor=a/i;
@@ -132,7 +132,7 @@ Numbers are randomly generated and passed to a method. Write a program to
 find and maintain the median value as new values are generated.
 */
 int Problem_9_DataStructure::getMedianValue(){
-    return largeVlaues.top();
+    return largeValues.top();
 }
 
 void Problem_9_DataStructure::insertValue(int v){
@@ -201,7 +201,7 @@ bool Chapter18::DFS(const string &strStart, const string &strEnd, const set<stri
 	if(visitedStrings.find(*iter)==visitedStrings.end() && checkOneLetterChange(strStart, *iter)){
 	    path.push_back(*iter);
 	    visitedStrings.insert(*iter);
-	    bool temp = DFS(*iter, strEnd, dict, path);
+	    bool temp = DFS(*iter, strEnd, dict, path, visitedStrings);
 	    if(temp)
 		return true;
 	    else{
@@ -236,9 +236,9 @@ unsigned Chapter18::Problem_11(const MATRIX &matrix){
     return 0;
 }
 
-bool Chapter18::findSubspuares(const vector<vector<pair<int, int> > > &matrixPreknowledge, unsigned subsquareLen){
+bool Chapter18::findSubsquares(const vector<vector<pair<int, int> > > &matrixPreknowledge, unsigned subsquareLen){
     unsigned matrixSize = matrixPreknowledge.size();
-    unsigned rowNum = matrixSize-i+1, colNum = rowNum;
+    unsigned rowNum = matrixSize-subsquareLen+1, colNum = rowNum;
     for(size_t i=0; i!=rowNum; ++i){
 	for(size_t j=0; j!=colNum; ++j){
 	    if(isSquare(matrixPreknowledge, i, j, subsquareLen))
@@ -284,7 +284,7 @@ MAXSUMSTORAGE Chapter18::initializeStorage(int matrixSize){
 
 int Chapter18::maxSumOfMatrixDP(const MATRIX &matrix){
     int matrixSize = matrix.size();
-    MAXSUMSTORAGE maxMatrixStore = inializeStorage(matrixSize);
+    MAXSUMSTORAGE maxMatrixStore = initializeStorage(matrixSize);
     int maxVal = INT_MIN;
     for(int i=matrixSize-1; i>=0; --i){
 	for(int j=matrixSize-1; j>=0; --j){
@@ -308,7 +308,7 @@ int Chapter18::Problem_12_dynamic_program(const MATRIX &matrix){
 }
 
 
-void Chapter18::getSumValueOfRowSegment(const MATRIX &matrix, vector<vector<int> > &oneRowSumValues, int rowNum, int colStart, int colEnd){
+int Chapter18::getSumValueOfRowSegment(const MATRIX &matrix, vector<vector<int> > &oneRowSumValues, int rowNum, int colStart, int colEnd){
     if(colEnd==colStart)
 	return matrix[rowNum][colStart];
     return oneRowSumValues[colStart][colEnd-1]+matrix[colStart][colEnd];
@@ -342,8 +342,8 @@ int Chapter18::getMaxValue(const vector<vector<vector<int> > > &rowsSumValues, i
 int Chapter18::maxSumOfMatrixRowColumn(const MATRIX &matrix){
     int matrixSize = matrix.size();
     vector<vector<vector<int> > > rowsSumValues(matrixSize, vector<vector<int> >(matrixSize, vector<int>(matrixSize, 0)));
-    getRowMaxValues(matrix, rowsSumValues);
-    return getMaxValue(maxRowValues, matrixSize);
+    getRowSumValues(matrix, rowsSumValues);
+    return getMaxValue(rowsSumValues, matrixSize);
 }
 
 int Chapter18::Problem_12_max_row_column(const MATRIX &matrix){

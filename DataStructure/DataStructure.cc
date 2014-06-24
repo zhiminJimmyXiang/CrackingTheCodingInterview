@@ -51,13 +51,13 @@ SuffixTree::SuffixTree(const string &str){
     }
 }
 
-bool SuffixTreeNode* SuffixTree::searchString(const string &str){
+bool SuffixTree::searchString(const string &str){
     SuffixTreeNode *curr= &root;
     for(size_t i=0; i!=str.size(); ++i){
-	if(curr->childNodes.find(str[i])==curr->childeNodes.end())
+	if(curr->childNodes.find(str[i])==curr->childNodes.end())
 	    return false;
 	else
-	    curr=curr->childeNodes[str[i]];
+	    curr=curr->childNodes[str[i]];
     }
     return true;
 }
