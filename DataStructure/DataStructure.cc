@@ -47,7 +47,7 @@ void SuffixTree::insertString(const string &str){
 
 SuffixTree::SuffixTree(const string &str){
     for(size_t i=0; i!=str.size(); ++i){
-	insertString(string(str.begin(), str.begin()+i+1));
+	insertString(string(str.begin()+i, str.end()));
     }
 }
 

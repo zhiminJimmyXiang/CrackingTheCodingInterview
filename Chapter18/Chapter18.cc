@@ -11,9 +11,9 @@ int Chapter18::add(int a, int b, int carry){
 	return carry;
     int tempA = (a&1), tempB = (b&1);
     int tempResult =  (tempA^tempB^carry);
-    carry = ((((tempA|tempB|carry)==1) && ((tempA|tempB==1)||(tempA|carry==1)||(tempB|carry==1)))?1:0);
-    a=a>>1;
-    b=b>>1;
+    carry = ((((tempA|tempB|carry)==1) && ((tempA|tempB==1)&&(tempA|carry==1)&&(tempB|carry==1)))?1:0);
+    a=((unsigned)a)>>1;
+    b=((unsigned)b)>>1;
     int restResult = add(a, b, carry);
     int result = ((restResult<<1)|tempResult);
     return result;
@@ -214,6 +214,7 @@ bool Chapter18::DFS(const string &strStart, const string &strEnd, const set<stri
 
 void Chapter18::Problem_10(const string &strStart, const string &strEnd, const set<string> &dict, vector<string> &path){
     set<string> visitedStrings;
+    path.push_back(strStart);
     DFS(strStart, strEnd, dict, path, visitedStrings);
 }
 
@@ -225,9 +226,9 @@ filled with black pixels.
 */
 
 unsigned Chapter18::Problem_11(const MATRIX &matrix){
-    vector<vector<pair<int, int> > > matrixPreknowledge;
-    preprocessMatrix(matrix, matrixPreknowledge);
     unsigned matrixSize = matrix.size();
+    vector<vector<pair<int, int> > > matrixPreknowledge(matrixSize, vector<pair<int, int> >(matrixSize));
+    preprocessMatrix(matrix, matrixPreknowledge);
     for(size_t i=matrixSize; i!=0; --i){
 	bool temp = findSubsquares(matrixPreknowledge, i);
 	if(temp)
@@ -290,10 +291,10 @@ int Chapter18::maxSumOfMatrixDP(const MATRIX &matrix){
 	for(int j=matrixSize-1; j>=0; --j){
 	    for(size_t width=0; width!=matrixSize; ++width){
 		for(size_t height = 0; height!=matrixSize; ++height){
-		    
-		    int rightMatrixVal=(j+width>=matrixSize?0:maxMatrixStore[i][j+1][width-1][height]);
-		    int bottomMatrixVal=(i+height>=matrixSize?0:maxMatrixStore[i+1][j][width][height-1]);
-		    int overlapMatrixVal=(j+width>=matrixSize||i+height>=matrixSize?0:maxMatrixStore[i+1][j+1][width-1][height+1]);
+		   
+		    int rightMatrixVal=((j+width>=matrixSize||width==0)?0:maxMatrixStore[i][j+1][width-1][height]);
+		    int bottomMatrixVal=((i+height>=matrixSize||height==0)?0:maxMatrixStore[i+1][j][width][height-1]);
+		    int overlapMatrixVal=((j+width>=matrixSize||i+height>=matrixSize||width*height==0)?0:maxMatrixStore[i+1][j+1][width-1][height-1]);
 		    maxMatrixStore[i][j][width][height] = matrix[i][j]+rightMatrixVal+bottomMatrixVal-overlapMatrixVal;
 		    maxVal = max(maxVal, maxMatrixStore[i][j][width][height]);
 		}
@@ -311,7 +312,7 @@ int Chapter18::Problem_12_dynamic_program(const MATRIX &matrix){
 int Chapter18::getSumValueOfRowSegment(const MATRIX &matrix, vector<vector<int> > &oneRowSumValues, int rowNum, int colStart, int colEnd){
     if(colEnd==colStart)
 	return matrix[rowNum][colStart];
-    return oneRowSumValues[colStart][colEnd-1]+matrix[colStart][colEnd];
+    return oneRowSumValues[colStart][colEnd-1]+matrix[rowNum][colEnd];
 }
 
 void Chapter18::getRowSumValues(const MATRIX &matrix, vector<vector<vector<int> > > &rowsSumValues){

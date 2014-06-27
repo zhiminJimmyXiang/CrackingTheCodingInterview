@@ -33,6 +33,8 @@ class Chapter18{
 class Chapter18_test{
   public:
     bool Problem_1_test();
+    int count2ForOneNumber(unsigned num);
+    int count2sBruteForce(unsigned num);
     bool Problem_2_test();
     bool Problem_3_test();
     bool Problem_4_test();
@@ -51,8 +53,8 @@ class Chapter18_test{
 
 class Problem_9_DataStructure{
  public:
-    priority_queue<int, vector<int>, greater<int> > smallValues;
-    priority_queue<int> largeValues;
+    priority_queue<int> smallValues;
+    priority_queue<int, vector<int>, greater<int> > largeValues;
     int getMedianValue();
     void insertValue(int v);
 };

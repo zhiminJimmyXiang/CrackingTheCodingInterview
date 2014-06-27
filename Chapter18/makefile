@@ -6,6 +6,6 @@ Chapter18.o: Chapter18.h Chapter18.cc
 Chapter18_test.o: Chapter18.h Chapter18_test.cc
 
 .PHONY clean:
-	rm Chapter17; rm *.o; cd ../DataStructure; make clean;
+	rm Chapter18; rm *.o; cd ../DataStructure; make clean;
 
 
